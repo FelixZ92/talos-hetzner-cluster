@@ -8,6 +8,7 @@ config file to create a snapshot on hetzner cloud for [Talos Linux](https://www.
 export HCLOUD_TOKEN=${TOKEN}
 
 # Upload image
+cd image
 packer init .
 packer build .
 # Save the image ID

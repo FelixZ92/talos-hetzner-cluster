@@ -7,7 +7,7 @@ resource "hcloud_placement_group" "node_pool" {
   }
 }
 
-resource "hcloud_server_network" "control_plane" {
+resource "hcloud_server_network" "worker" {
   count     = var.worker_replicas
   server_id = element(hcloud_server.worker.*.id, count.index)
   subnet_id = var.network_id

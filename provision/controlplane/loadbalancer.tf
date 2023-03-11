@@ -24,7 +24,7 @@ resource "hcloud_load_balancer_target" "load_balancer_target" {
 
   type             = "label_selector"
   load_balancer_id = hcloud_load_balancer.load_balancer.0.id
-  label_selector   = "cluster=${var.cluster_name},role=api"
+  label_selector   = "cluster=${var.cluster_name},role=controlplane"
   use_private_ip   = true
 
   depends_on = [

@@ -30,4 +30,5 @@ module "worker" {
   pool_name = "pool-1"
   datacenter = "nbg1"
   depends_on = [hcloud_network_subnet.subnet]
+  worker_replicas = 1
 }

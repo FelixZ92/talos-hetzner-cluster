@@ -1,6 +1,3 @@
-locals {
-  kubeapi_endpoint   = var.loadbalancer_count == 0 ? hcloud_server_network.control_plane.0.ip : hcloud_load_balancer.load_balancer.0.network_ip
-}
 variable "cluster_name" {
   description = "prefix for cloud resources"
   type        = string

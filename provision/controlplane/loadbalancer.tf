@@ -9,9 +9,9 @@ resource "hcloud_load_balancer_network" "load_balancer" {
 
 resource "hcloud_load_balancer" "load_balancer" {
   count = var.loadbalancer_count
-
   name               = "${var.cluster_name}-lb"
   load_balancer_type = var.lb_type
+  network_zone = "eu-central"
 
   labels = {
     "cluster" = var.cluster_name

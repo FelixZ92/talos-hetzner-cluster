@@ -8,7 +8,7 @@ module "bastion" {
   source       = "./bastion"
   cluster_name = var.cluster_name
 
-  network_id     = hcloud_network_subnet.subnet.network_id
+  network_id     = hcloud_network_subnet.subnet.id
   ssh_public_key = var.ssh_public_key
 }
 
@@ -17,7 +17,8 @@ module "controlplane" {
 
   cluster_name = var.cluster_name
   image        = var.image
-  network_id   = hcloud_network_subnet.subnet.network_id
+  network_id   = hcloud_network_subnet.subnet.id
+  depends_on = [hcloud_network_subnet.subnet]
 }
 
 module "worker" {
@@ -25,7 +26,8 @@ module "worker" {
   source = "./worker"
   cluster_name = var.cluster_name
   image = var.image
-  network_id = hcloud_network_subnet.subnet.network_id
+  network_id = hcloud_network_subnet.subnet.id
   pool_name = "pool-1"
   datacenter = "nbg"
+  depends_on = [hcloud_network_subnet.subnet]
 }

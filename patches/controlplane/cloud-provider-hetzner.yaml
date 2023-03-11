@@ -1,0 +1,7 @@
+cluster:
+  externalCloudProvider:
+    enabled: true # Enable external cloud provider.
+    #     # A list of urls that point to additional manifests for an external cloud provider.
+    manifests:
+      - https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases/download/v1.13.2/ccm.yaml
+      - https://raw.githubusercontent.com/hetznercloud/csi-driver/v2.1.1/deploy/kubernetes/hcloud-csi.yml

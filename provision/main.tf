@@ -28,6 +28,6 @@ module "worker" {
   image = var.image
   network_id = hcloud_network_subnet.subnet.id
   pool_name = "pool-1"
-  datacenter = "nbg"
+  datacenter = "nbg1"
   depends_on = [hcloud_network_subnet.subnet]
 }

@@ -110,7 +110,7 @@ variable "lb_type" {
 }
 
 variable "datacenter" {
-  default = "nbg"
+  default = "nbg1"
   type    = string
 }
 

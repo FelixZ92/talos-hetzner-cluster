@@ -18,7 +18,7 @@ resource "hcloud_server" "worker" {
   name               = "${var.cluster_name}-${var.pool_name}-worker-${count.index + 1}"
   server_type        = var.worker_type
   image              = var.image
-  datacenter = var.datacenter
+  location           = var.datacenter
   placement_group_id = hcloud_placement_group.node_pool.id
   labels             = {
     "cluster" = var.cluster_name

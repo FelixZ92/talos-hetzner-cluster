@@ -25,7 +25,7 @@ variable "bastion_type" {
 }
 
 variable "datacenter" {
-  default = "nbg1"
+  default = "nbg"
   type    = string
 }
 

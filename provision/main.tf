@@ -27,5 +27,5 @@ module "worker" {
   image = var.image
   network_id = hcloud_network_subnet.subnet.network_id
   pool_name = "pool-1"
-  datacenter = "nbg1"
+  datacenter = "nbg"
 }

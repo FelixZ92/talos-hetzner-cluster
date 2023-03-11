@@ -1,6 +1,0 @@
-cluster:
-  controlPlane:
-    endpoint: https://loadbalancer-ip:6443
-  apiServer:
-    certSANs:
-      - loadbalancer-ip

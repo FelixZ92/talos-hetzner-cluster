@@ -1,4 +1,4 @@
 cluster:
   apiServer:
     certSANs:
-      - loadbalancer-ip
+      - ${loadbalancer_ip}

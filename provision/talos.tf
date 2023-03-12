@@ -20,33 +20,34 @@ resource "talos_client_configuration" "talosconfig" {
   endpoints       = module.controlplane.controlplane_hosts.controlplanes.*.private_address
 }
 
-resource "talos_machine_configuration_apply" "cp_config_apply" {
+#resource "talos_machine_configuration_apply" "cp_config_apply" {
+#  talos_config          = talos_client_configuration.talosconfig.talos_config
+#  machine_configuration = talos_machine_configuration_controlplane.machineconfig_cp.machine_config
+#  for_each              = module.controlplane.controlplane_hosts.controlplanes
+#  endpoint              = each.value.private_address
+#  node                  = each.value.name
+#  config_patches = [
+#    file("${path.module}/patches/common/rotate-certs.yaml"),
+#    templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
+#      loadbalancer_ip = module.controlplane.kubeapi_endpoint
+#    }),
+#    file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
+#    file("${path.module}/patches/controlplane/metrics-server.yaml"),
+#  ]
+#}
+
+#
+resource "talos_machine_configuration_apply" "worker_config_apply" {
   talos_config          = talos_client_configuration.talosconfig.talos_config
-  machine_configuration = talos_machine_configuration_controlplane.machineconfig_cp.machine_config
-  for_each              = module.controlplane.controlplane_hosts.controlplanes
-  endpoint              = each.value.private_address
-  node                  = each.value.name
+  machine_configuration = talos_machine_configuration_worker.machineconfig_worker.machine_config
+  for_each              = module.worker.worker_hosts.workers
+  endpoint              = each.value
+  node                  = each.key
   config_patches = [
     file("${path.module}/patches/common/rotate-certs.yaml"),
-    templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
-      loadbalancer_ip = module.controlplane.kubeapi_endpoint
-    }),
-    file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
-    file("${path.module}/patches/controlplane/metrics-server.yaml"),
   ]
 }
 
-#
-#resource "talos_machine_configuration_apply" "worker_config_apply" {
-#  talos_config          = talos_client_configuration.talosconfig.talos_config
-#  machine_configuration = talos_machine_configuration_worker.machineconfig_worker.machine_config
-#  for_each              = module.worker.worker_hosts
-#  endpoint              = each.private_address
-#  node                  = each.private_address
-#  config_patches = [
-#    file("${path.module}/patches/common/rotate-certs.yaml"),
-#  ]
-#}
 #
 #resource "talos_machine_bootstrap" "bootstrap" {
 #  talos_config = talos_client_configuration.talosconfig.talos_config

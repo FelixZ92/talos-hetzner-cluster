@@ -12,6 +12,12 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
       public_loadbalancer_ip = hcloud_load_balancer.load_balancer.ipv4
       private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
     }),
+    templatefile("${path.module}/patches/controlplane/etcd-advertised-subnets.yaml", {
+      ip_range = var.ip_range
+    }),
+    templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
+      ip_range = var.ip_range
+    }),
     file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
     file("${path.module}/patches/controlplane/metrics-server.yaml"),
   ]
@@ -23,6 +29,9 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
   config_patches = [
     file("${path.module}/patches/common/rotate-certs.yaml"),
+    templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
+      ip_range = var.ip_range
+    }),
   ]
 }
 

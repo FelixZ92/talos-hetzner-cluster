@@ -1,5 +1,5 @@
 locals {
-  kubeapi_endpoint   = var.loadbalancer_count == 0 ? hcloud_server_network.control_plane.0.ip : hcloud_load_balancer.load_balancer.0.network_ip
+  kubeapi_endpoint   = var.loadbalancer_count == 0 ? hcloud_server_network.control_plane.0.ip : hcloud_load_balancer.load_balancer.0.ipv4
 }
 
 variable "cluster_name" {

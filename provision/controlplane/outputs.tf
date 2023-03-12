@@ -1,10 +1,3 @@
-output "kubeapi_endpoint" {
-  value = {
-    public = local.public_kubeapi_endpoint
-    private = local.private_kubeapi_endpoint
-  }
-}
-
 output "controlplane_hosts" {
   value = {
     controlplanes = {

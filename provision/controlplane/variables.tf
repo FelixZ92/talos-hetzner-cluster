@@ -1,8 +1,3 @@
-locals {
-  public_kubeapi_endpoint = var.loadbalancer_count == 0 ? hcloud_server.control_plane.0.ipv4_address : hcloud_load_balancer.load_balancer.0.ipv4
-  private_kubeapi_endpoint   = var.loadbalancer_count == 0 ? hcloud_server_network.control_plane.0.ip : hcloud_load_balancer_network.load_balancer.0.ip
-}
-
 variable "cluster_name" {
   description = "prefix for cloud resources"
   type        = string
@@ -23,11 +18,6 @@ variable "control_plane_replicas" {
   type    = number
 }
 
-variable "lb_type" {
-  default = "lb11"
-  type    = string
-}
-
 variable "image" {
   type    = string
 }
@@ -41,7 +31,3 @@ variable "datacenters" {
   type        = list(string)
 }
 
-variable "loadbalancer_count" {
-  type = number
-  default = 1
-}

@@ -36,11 +36,6 @@ variable "datacenter" {
   type        = string
 }
 
-variable "loadbalancer_count" {
-  type = number
-  default = 1
-}
-
 variable "pool_name" {
   type = string
 }

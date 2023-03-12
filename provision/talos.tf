@@ -17,7 +17,7 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
 resource "talos_client_configuration" "talosconfig" {
   cluster_name    = var.cluster_name
   machine_secrets = talos_machine_secrets.machine_secrets.machine_secrets
-  endpoints       = [for k, v in module.controlplane.controlplane_hosts.private_address : v]
+  endpoints       = [for k, v in module.controlplane.controlplane_hosts.k.private_address : v]
 }
 #
 #resource "talos_machine_configuration_apply" "cp_config_apply" {

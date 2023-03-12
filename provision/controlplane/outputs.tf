@@ -3,8 +3,8 @@ output "kubeapi_endpoint" {
 }
 
 output "controlplane_hosts" {
-  value = {
-    hostnames            = hcloud_server.control_plane.*.name
-    private_address      = hcloud_server_network.control_plane.*.ip
-  }
+  value = [for i,w in hcloud_server.control_plane : {
+    name = w.name
+    private_address = hcloud_server_network.control_plane[i].ip
+  }]
 }

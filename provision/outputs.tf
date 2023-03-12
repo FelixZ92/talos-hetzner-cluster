@@ -3,5 +3,5 @@ output "controlplane_hosts" {
 }
 
 output "worker_hosts" {
-  value = module.worker.*.worker_hosts
+  value = module.worker-pool-1.worker_hosts.worker
 }

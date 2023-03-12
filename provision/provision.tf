@@ -13,8 +13,7 @@ module "controlplane" {
   depends_on = [hcloud_network_subnet.subnet]
 }
 
-module "worker" {
-  count = var.worker_replicas
+module "worker-pool-1" {
   source = "./worker"
   cluster_name = var.cluster_name
   image = var.image

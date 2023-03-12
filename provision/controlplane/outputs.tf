@@ -2,7 +2,7 @@ output "kubeapi_endpoint" {
   value = local.kubeapi_endpoint
 }
 
-output "test" {
+output "controlplane_hosts" {
   value = {
     controlplanes = {
       for i, w in hcloud_server.control_plane : w.name => {

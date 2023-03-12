@@ -37,6 +37,26 @@ resource "hcloud_firewall" "cluster" {
       var.ip_range,
     ]
   }
+
+  rule {
+    description = "allow apid"
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "50000"
+    source_ips  = [
+      "0.0.0.0/0",
+    ]
+  }
+
+  rule {
+    description = "allow trustd"
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "50001"
+    source_ips  = [
+      "0.0.0.0/0",
+    ]
+  }
 }
 
 resource "hcloud_firewall" "bastion" {

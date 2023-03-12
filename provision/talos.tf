@@ -40,7 +40,7 @@ resource "talos_machine_configuration_apply" "cp_config_apply" {
 resource "talos_machine_configuration_apply" "worker_config_apply" {
   talos_config          = talos_client_configuration.talosconfig.talos_config
   machine_configuration = talos_machine_configuration_worker.machineconfig_worker.machine_config
-  for_each              = module.worker.worker_hosts.worker
+  for_each              = module.worker.*.worker_hosts.worker
   endpoint              = each.value.private_address
   node                  = each.key
   config_patches = [

@@ -50,7 +50,7 @@ resource "hcloud_firewall" "cluster" {
 }
 
 resource "hcloud_firewall" "controlplane" {
-  name = "${var.cluster_name}-fw"
+  name = "${var.cluster_name}-api-fw"
 
   labels = {
     "cluster" = var.cluster_name

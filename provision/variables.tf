@@ -93,7 +93,7 @@ variable "worker_type" {
   type    = string
 }
 
-variable "initial_worker_replicas" {
+variable "worker_replicas" {
   description = "Number of replicas per MachineDeployment"
   default     = 3
   type        = number

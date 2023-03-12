@@ -14,7 +14,7 @@ module "controlplane" {
 }
 
 module "worker" {
-  count = 1
+  count = var.worker_replicas
   source = "./worker"
   cluster_name = var.cluster_name
   image = var.image

@@ -5,7 +5,7 @@ terraform {
     organization = "fzx"
 
     workspaces {
-      name = "staging"
+      name = "talos-hetzner-cluster"
     }
   }
 

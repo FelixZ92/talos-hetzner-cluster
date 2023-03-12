@@ -4,13 +4,13 @@ resource "talos_machine_secrets" "machine_secrets" {}
 
 resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
   cluster_name     = var.cluster_name
-  cluster_endpoint = "https://${module.controlplane.kubeapi_endpoint}:6443"
+  cluster_endpoint = "https://${module.controlplane.kubeapi_endpoint.public}:6443"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
 }
 
 resource "talos_machine_configuration_worker" "machineconfig_worker" {
   cluster_name     = var.cluster_name
-  cluster_endpoint = "https://${module.controlplane.kubeapi_endpoint}:6443"
+  cluster_endpoint = "https://${module.controlplane.kubeapi_endpoint.public}:6443"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
 }
 
@@ -29,7 +29,8 @@ resource "talos_machine_configuration_apply" "cp_config_apply" {
   config_patches = [
     file("${path.module}/patches/common/rotate-certs.yaml"),
     templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
-      loadbalancer_ip = module.controlplane.kubeapi_endpoint
+      public_loadbalancer_ip = module.controlplane.kubeapi_endpoint.public
+      private_loadbalancer_ip = module.controlplane.kubeapi_endpoint.private
     }),
     file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
     file("${path.module}/patches/controlplane/metrics-server.yaml"),

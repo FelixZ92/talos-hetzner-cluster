@@ -3,5 +3,5 @@ output "controlplane_hosts" {
 }
 
 output "zipmap_test" {
-  value = module.worker.zipmap_test
+  value = module.controlplane.kubeapi_endpoint
 }

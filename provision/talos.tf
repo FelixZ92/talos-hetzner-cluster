@@ -60,15 +60,16 @@ resource "talos_client_configuration" "talosconfig" {
 #  ]
 #}
 #
-#resource "talos_machine_bootstrap" "bootstrap" {
-#  talos_config = talos_client_configuration.talosconfig.talos_config
-#  endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
-#  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
-#}
-#
-#resource "talos_cluster_kubeconfig" "kubeconfig" {
-#  talos_config = talos_client_configuration.talosconfig.talos_config
-#  endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
-#  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
-#}
-#
+
+resource "talos_machine_bootstrap" "bootstrap" {
+  talos_config = talos_client_configuration.talosconfig.talos_config
+  endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
+  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
+}
+
+resource "talos_cluster_kubeconfig" "kubeconfig" {
+  talos_config = talos_client_configuration.talosconfig.talos_config
+  endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
+  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
+}
+

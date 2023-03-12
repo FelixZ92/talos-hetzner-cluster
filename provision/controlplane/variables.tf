@@ -1,6 +1,6 @@
 locals {
   public_kubeapi_endpoint = var.loadbalancer_count == 0 ? hcloud_server.control_plane.0.ipv4_address : hcloud_load_balancer.load_balancer.0.ipv4
-  private_kubeapi_endpoint   = var.loadbalancer_count == 0 ? hcloud_server_network.control_plane.0.ip : hcloud_load_balancer_network.load_balancer.ip
+  private_kubeapi_endpoint   = var.loadbalancer_count == 0 ? hcloud_server_network.control_plane.0.ip : hcloud_load_balancer_network.load_balancer.0.ip
 }
 
 variable "cluster_name" {

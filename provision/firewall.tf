@@ -80,34 +80,3 @@ resource "hcloud_firewall" "controlplane" {
     ]
   }
 }
-
-resource "hcloud_firewall" "bastion" {
-  name = "${var.cluster_name}-bastion-fw"
-
-  labels = {
-    "cluster" = var.cluster_name
-  }
-
-  apply_to {
-    label_selector = "role=bastion"
-  }
-
-  rule {
-    description = "allow ICMP"
-    direction   = "in"
-    protocol    = "icmp"
-    source_ips  = [
-      "0.0.0.0/0",
-    ]
-  }
-
-  rule {
-    description = "allow SSH any"
-    direction   = "in"
-    protocol    = "tcp"
-    port        = "22"
-    source_ips  = [
-      "0.0.0.0/0",
-    ]
-  }
-}

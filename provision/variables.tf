@@ -83,11 +83,6 @@ variable "control_plane_type" {
   type    = string
 }
 
-variable "bastion_type" {
-  default = "cx11"
-  type    = string
-}
-
 variable "control_plane_replicas" {
   default = 3
   type    = number
@@ -111,11 +106,6 @@ variable "lb_type" {
 
 variable "datacenter" {
   default = "nbg1"
-  type    = string
-}
-
-variable "bastion_image" {
-  default = "ubuntu-20.04"
   type    = string
 }
 

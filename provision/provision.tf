@@ -4,14 +4,6 @@ locals {
   loadbalancer_count = var.disable_kubeapi_loadbalancer ? 0 : 1
 }
 
-module "bastion" {
-  source       = "./bastion"
-  cluster_name = var.cluster_name
-
-  network_id     = hcloud_network_subnet.subnet.id
-  ssh_public_key = var.ssh_public_key
-}
-
 module "controlplane" {
   source = "./controlplane"
 

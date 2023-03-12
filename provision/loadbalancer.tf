@@ -1,6 +1,6 @@
 resource "hcloud_load_balancer_network" "load_balancer" {
   load_balancer_id        = hcloud_load_balancer.load_balancer.id
-  subnet_id               = var.network_id
+  subnet_id               = hcloud_network_subnet.subnet.id
   ip                      = ""
   enable_public_interface = true
 }

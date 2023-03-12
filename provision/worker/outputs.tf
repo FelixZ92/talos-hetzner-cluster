@@ -4,6 +4,6 @@ output "worker_hosts" {
 
 output "zipmap_test" {
   value = {
-    for k, w in hcloud_server.worker : k => w.name
+    for i, w in hcloud_server.worker : w.name => hcloud_server_network.worker[i].ip
   }
 }

@@ -10,3 +10,9 @@ output "controlplane_hosts" {
     }]
   }
 }
+
+output "zipmap_test2" {
+  value = {
+    for i, w in hcloud_server.control_plane : w.name => hcloud_server_network.control_plane[i].ip
+  }
+}

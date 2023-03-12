@@ -21,7 +21,7 @@ output "talosconfig" {
   sensitive = true
 }
 
-output "kubeconfig" {
-  value     = talos_cluster_kubeconfig.kubeconfig.kube_config
-  sensitive = true
-}
+#output "kubeconfig" {
+#  value     = talos_cluster_kubeconfig.kubeconfig.kube_config
+#  sensitive = true
+#}

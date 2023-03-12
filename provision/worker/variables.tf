@@ -39,3 +39,7 @@ variable "datacenter" {
 variable "pool_name" {
   type = string
 }
+
+variable "worker_config" {
+  type = string
+}

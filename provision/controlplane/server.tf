@@ -21,6 +21,7 @@ resource "hcloud_server" "control_plane" {
   image              = var.image
   location           = var.datacenters[count.index]
   placement_group_id = hcloud_placement_group.control_plane.id
+  user_data = var.control_plane_config
   labels = {
     "cluster" = var.cluster_name
     "role"                 = "controlplane"

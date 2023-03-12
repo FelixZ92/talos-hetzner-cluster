@@ -20,6 +20,7 @@ resource "hcloud_server" "worker" {
   image              = var.image
   location           = var.datacenter
   placement_group_id = hcloud_placement_group.node_pool.id
+  user_data = var.worker_config
   labels             = {
     "cluster" = var.cluster_name
     "role"    = "worker"

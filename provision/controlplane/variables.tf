@@ -31,3 +31,6 @@ variable "datacenters" {
   type        = list(string)
 }
 
+variable "control_plane_config" {
+  type = string
+}

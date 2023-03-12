@@ -39,6 +39,28 @@ resource "hcloud_firewall" "cluster" {
   }
 
   rule {
+    description = "allow trustd"
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "50001"
+    source_ips  = [
+      "0.0.0.0/0",
+    ]
+  }
+}
+
+resource "hcloud_firewall" "controlplane" {
+  name = "${var.cluster_name}-fw"
+
+  labels = {
+    "cluster" = var.cluster_name
+  }
+
+  apply_to {
+    label_selector = "cluster=${var.cluster_name},role=controlplane"
+  }
+
+  rule {
     description = "allow apid"
     direction   = "in"
     protocol    = "tcp"
@@ -49,10 +71,10 @@ resource "hcloud_firewall" "cluster" {
   }
 
   rule {
-    description = "allow trustd"
+    description = "allow kubeapi"
     direction   = "in"
     protocol    = "tcp"
-    port        = "50001"
+    port        = "6443"
     source_ips  = [
       "0.0.0.0/0",
     ]

@@ -8,6 +8,7 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
   config_patches = [
     file("${path.module}/patches/common/rotate-certs.yaml"),
+    file("${path.module}/patches/common/interfaces.yaml"),
     templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
       public_loadbalancer_ip = hcloud_load_balancer.load_balancer.ipv4
       private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
@@ -29,6 +30,7 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
   config_patches = [
     file("${path.module}/patches/common/rotate-certs.yaml"),
+    file("${path.module}/patches/common/interfaces.yaml"),
     templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
       ip_range = var.ip_range
     }),

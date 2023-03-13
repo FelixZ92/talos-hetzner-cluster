@@ -1,8 +1,9 @@
-resource "hcloud_firewall" "cluster" {
-  name = "${var.cluster_name}-fw"
+resource "hcloud_firewall" "allow_all_in_private_network" {
+  name = "${var.cluster_name}-allow-all-in-private-network"
 
   labels = {
     "cluster" = var.cluster_name
+    "role" = "all"
   }
 
   apply_to {
@@ -37,24 +38,14 @@ resource "hcloud_firewall" "cluster" {
       var.ip_range,
     ]
   }
-
-  rule {
-    description = "allow apid"
-    direction   = "in"
-    protocol    = "tcp"
-    port        = "50000"
-    source_ips  = [
-      "0.0.0.0/0",
-    ]
-  }
-
 }
 
-resource "hcloud_firewall" "controlplane" {
-  name = "${var.cluster_name}-api-fw"
+resource "hcloud_firewall" "allow_apid_kubeapi" {
+  name = "${var.cluster_name}-allow-apid-and-kubeapi"
 
   labels = {
     "cluster" = var.cluster_name
+    "role" = "controlplane"
   }
 
   apply_to {
@@ -62,10 +53,10 @@ resource "hcloud_firewall" "controlplane" {
   }
 
   rule {
-    description = "allow trustd"
+    description = "allow apid"
     direction   = "in"
     protocol    = "tcp"
-    port        = "50001"
+    port        = "50000"
     source_ips  = [
       "0.0.0.0/0",
     ]

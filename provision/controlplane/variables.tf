@@ -34,3 +34,12 @@ variable "datacenters" {
 variable "control_plane_config" {
   type = string
 }
+
+
+variable "cidr_offset" {
+  type = number
+}
+
+variable "vpc_cidr" {
+  type = string
+}

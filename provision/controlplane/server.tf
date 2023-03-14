@@ -12,6 +12,7 @@ resource "hcloud_server_network" "control_plane" {
   count     = var.control_plane_replicas
   server_id = element(hcloud_server.control_plane.*.id, count.index)
   subnet_id = var.network_id
+  ip = cidrhost(var.vpc_cidr, var.cidr_offset + count.index)
 }
 
 resource "hcloud_server" "control_plane" {

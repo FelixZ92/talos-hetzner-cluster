@@ -24,7 +24,7 @@ variable "lb_type" {
 }
 
 variable "image" {
-  type    = string
+  type = string
 }
 
 variable "network_id" {
@@ -32,14 +32,22 @@ variable "network_id" {
 }
 
 variable "datacenter" {
-  default     = "nbg1"
-  type        = string
+  default = "nbg1"
+  type    = string
 }
 
 variable "pool_name" {
   type = string
 }
 
+variable "cidr_offset" {
+  type = number
+}
+
 variable "worker_config" {
+  type = string
+}
+
+variable "vpc_cidr" {
   type = string
 }

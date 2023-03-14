@@ -11,6 +11,7 @@ resource "hcloud_server_network" "worker" {
   count     = var.worker_replicas
   server_id = element(hcloud_server.worker.*.id, count.index)
   subnet_id = var.network_id
+  ip = cidrhost(var.vpc_cidr, var.cidr_offset + count.index)
 }
 
 resource "hcloud_server" "worker" {

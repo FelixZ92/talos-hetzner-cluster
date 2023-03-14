@@ -25,7 +25,7 @@ resource "hcloud_firewall" "allow_all_in_private_network" {
     protocol    = "tcp"
     port        = "any"
     source_ips  = [
-      var.ip_range,
+      var.vpc_cidr,
     ]
   }
 
@@ -35,7 +35,7 @@ resource "hcloud_firewall" "allow_all_in_private_network" {
     protocol    = "udp"
     port        = "any"
     source_ips  = [
-      var.ip_range,
+      var.vpc_cidr,
     ]
   }
 }

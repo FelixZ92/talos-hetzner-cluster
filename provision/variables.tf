@@ -47,7 +47,7 @@ variable "image" {
   type    = string
 }
 
-variable "ip_range" {
+variable "vpc_cidr" {
   default     = "192.168.0.0/16"
   description = "ip range to use for private network"
   type        = string

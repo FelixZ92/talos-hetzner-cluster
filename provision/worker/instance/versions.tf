@@ -5,5 +5,8 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "~> 1.36.2"
     }
+    talos = {
+      source = "siderolabs/talos"
+    }
   }
 }

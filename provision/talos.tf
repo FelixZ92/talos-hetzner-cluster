@@ -2,45 +2,6 @@ provider "talos" {}
 
 resource "talos_machine_secrets" "machine_secrets" {}
 
-resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
-  cluster_name     = var.cluster_name
-  cluster_endpoint = "https://${hcloud_load_balancer.load_balancer.ipv4}:6443"
-  machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
-  config_patches = [
-    file("${path.module}/patches/common/rotate-certs.yaml"),
-    file("${path.module}/patches/common/interfaces.yaml"),
-    templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
-      public_loadbalancer_ip = hcloud_load_balancer.load_balancer.ipv4
-      private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
-    }),
-    templatefile("${path.module}/patches/controlplane/etcd-advertised-subnets.yaml", {
-      ip_range = var.vpc_cidr
-    }),
-    templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
-      ip_range = var.vpc_cidr
-    }),
-    file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
-    file("${path.module}/patches/controlplane/metrics-server.yaml"),
-  ]
-}
-
-resource "talos_machine_configuration_worker" "machineconfig_worker" {
-  cluster_name     = var.cluster_name
-  cluster_endpoint = "https://${hcloud_load_balancer.load_balancer.ipv4}:6443"
-  machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
-  config_patches = [
-    file("${path.module}/patches/common/rotate-certs.yaml"),
-    file("${path.module}/patches/common/interfaces.yaml"),
-    templatefile("${path.module}/patches/common/machine-cert-sans.yaml", {
-      public_loadbalancer_ip = hcloud_load_balancer.load_balancer.ipv4
-      private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
-    }),
-    templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
-      ip_range = var.vpc_cidr
-    }),
-  ]
-}
-
 resource "talos_client_configuration" "talosconfig" {
   cluster_name    = var.cluster_name
   machine_secrets = talos_machine_secrets.machine_secrets.machine_secrets

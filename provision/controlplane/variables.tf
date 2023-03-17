@@ -31,15 +31,22 @@ variable "datacenters" {
   type        = list(string)
 }
 
-variable "control_plane_config" {
-  type = string
-}
-
-
 variable "cidr_offset" {
   type = number
 }
 
 variable "vpc_cidr" {
+  type = string
+}
+
+variable "machine_secrets" {
+  type = string
+}
+
+variable "loadbalancer_public_ip" {
+  type = string
+}
+
+variable "loadbalancer_private_ip" {
   type = string
 }

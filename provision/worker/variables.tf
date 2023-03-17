@@ -18,11 +18,6 @@ variable "worker_replicas" {
   type    = number
 }
 
-variable "lb_type" {
-  default = "lb11"
-  type    = string
-}
-
 variable "image" {
   type = string
 }
@@ -44,10 +39,18 @@ variable "cidr_offset" {
   type = number
 }
 
-variable "worker_config" {
+variable "vpc_cidr" {
   type = string
 }
 
-variable "vpc_cidr" {
+variable "machine_secrets" {
+  type = string
+}
+
+variable "loadbalancer_public_ip" {
+  type = string
+}
+
+variable "loadbalancer_private_ip" {
   type = string
 }

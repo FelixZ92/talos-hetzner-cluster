@@ -41,7 +41,7 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
     templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
       public_loadbalancer_ip = var.loadbalancer_public_ip
       private_loadbalancer_ip = var.loadbalancer_private_ip
-      public_ip = hcloud_primary_ip.primary_ip.ip
+      public_ip = hcloud_primary_ip.primary_ip.ip_address
       private_ip = var.private_ip
     }),
     file("${path.module}/patches/controlplane/metrics-server.yaml"),
@@ -61,6 +61,6 @@ resource "hcloud_server" "control_plane" {
   }
 
   public_net {
-    ipv4 = hcloud_primary_ip.primary_ip.ip
+    ipv4 = hcloud_primary_ip.primary_ip.id
   }
 }

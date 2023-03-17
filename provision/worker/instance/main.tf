@@ -27,7 +27,7 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
     templatefile("${path.module}/patches/common/machine-cert-sans.yaml", {
       public_loadbalancer_ip = var.loadbalancer_public_ip
       private_loadbalancer_ip = var.loadbalancer_private_ip
-      public_ip = hcloud_primary_ip.primary_ip.ip
+      public_ip = hcloud_primary_ip.primary_ip.ip_address
       private_ip = var.private_ip
     }),
     templatefile("${path.module}/patches/common/node-ip.yaml", {
@@ -50,6 +50,6 @@ resource "hcloud_server" "worker" {
   }
 
   public_net {
-    ipv4 = hcloud_primary_ip.primary_ip.ip
+    ipv4 = hcloud_primary_ip.primary_ip.id
   }
 }

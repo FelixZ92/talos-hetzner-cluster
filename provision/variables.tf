@@ -43,7 +43,7 @@ variable "lb_type" {
 
 
 variable "image" {
-  default = "102834488" # talos 1.3.5 snapshot
+  default = "103681095" # talos 1.3.5 snapshot
   type    = string
 }
 

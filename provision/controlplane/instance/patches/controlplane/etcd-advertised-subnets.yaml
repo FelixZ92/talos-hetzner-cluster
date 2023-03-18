@@ -1,11 +1,4 @@
 cluster:
-  network:
-    podSubnets:
-      - 10.32.0.0/12
-      - fd00:10:32::/102
-    serviceSubnets:
-      - 10.200.0.0/22
-      - fd40:10:200::/112
   etcd:
     advertisedSubnets:
       - ${ip_range}

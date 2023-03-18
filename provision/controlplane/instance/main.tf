@@ -25,12 +25,12 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
     templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
       ip_range = var.vpc_cidr
     }),
-#    templatefile("${path.module}/patches/common/machine-cert-sans.yaml", {
-#      public_loadbalancer_ip  = var.loadbalancer_public_ip
-#      private_loadbalancer_ip = var.loadbalancer_private_ip
-#      public_ip               = hcloud_primary_ip.primary_ip.ip_address
-#      private_ip              = var.private_ip
-#    }),
+    templatefile("${path.module}/patches/common/machine-cert-sans.yaml", {
+      public_loadbalancer_ip  = var.loadbalancer_public_ip
+      private_loadbalancer_ip = var.loadbalancer_private_ip
+      public_ip               = hcloud_primary_ip.primary_ip.ip_address
+      private_ip              = var.private_ip
+    }),
 #    templatefile("${path.module}/patches/common/node-ip.yaml", {
 #      private_ip = var.private_ip
 #    }),

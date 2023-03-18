@@ -27,7 +27,7 @@ variable "network_id" {
 }
 
 variable "datacenter" {
-  default = "nbg1"
+  default = "nbg1-dc3"
   type    = string
 }
 

@@ -27,7 +27,7 @@ variable "network_id" {
 }
 
 variable "datacenters" {
-  default     = ["nbg1", "fsn1" , "hel1"]
+  default     = ["nbg1-dc4", "fsn1-dc14" , "hel1-dc3"]
   type        = list(string)
 }
 

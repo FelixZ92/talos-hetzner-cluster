@@ -45,3 +45,7 @@ variable "machine_secrets" {
 variable "vpc_cidr" {
   type = string
 }
+
+variable "index" {
+  type = number
+}

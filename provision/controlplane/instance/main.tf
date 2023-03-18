@@ -5,7 +5,7 @@ resource "hcloud_server_network" "control_plane" {
 }
 
 resource "hcloud_primary_ip" "primary_ip" {
-  name          = "${var.cluster_name}-control-plane"
+  name          = "${var.cluster_name}-control-plane-${var.index}"
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = false
@@ -49,7 +49,7 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
 }
 
 resource "hcloud_server" "control_plane" {
-  name               = "${var.cluster_name}-control-plane"
+  name               = "${var.cluster_name}-control-plane-${var.index}"
   server_type        = var.control_plane_type
   image              = var.image
   location           = var.datacenter

@@ -5,7 +5,7 @@ resource "hcloud_server_network" "worker" {
 }
 
 resource "hcloud_primary_ip" "primary_ip" {
-  name          = "${var.cluster_name}-${var.pool_name}-worker"
+  name          = "${var.cluster_name}-${var.pool_name}-worker-${var.index}"
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = false
@@ -38,7 +38,7 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
 }
 
 resource "hcloud_server" "worker" {
-  name               = "${var.cluster_name}-${var.pool_name}-worker"
+  name               = "${var.cluster_name}-${var.pool_name}-worker-${var.index}"
   server_type        = var.worker_type
   image              = var.image
   location           = var.datacenter

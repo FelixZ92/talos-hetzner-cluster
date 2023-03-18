@@ -22,4 +22,5 @@ module "instance" {
   vpc_cidr = var.vpc_cidr
   pool_name   = var.pool_name
   worker_type = var.worker_type
+  index = count.index
 }

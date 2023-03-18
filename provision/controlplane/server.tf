@@ -21,4 +21,5 @@ module "instance" {
   placement_group = hcloud_placement_group.control_plane.id
   private_ip = cidrhost(var.vpc_cidr, var.cidr_offset + count.index)
   vpc_cidr = var.vpc_cidr
+  index = count.index
 }

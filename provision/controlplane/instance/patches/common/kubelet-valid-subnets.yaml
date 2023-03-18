@@ -3,3 +3,4 @@ machine:
     nodeIP:
       validSubnets:
         - ${ip_range}
+        - fdc7::/16

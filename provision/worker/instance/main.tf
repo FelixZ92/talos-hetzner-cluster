@@ -8,6 +8,7 @@ resource "hcloud_primary_ip" "primary_ip" {
   name          = "${var.cluster_name}-${var.pool_name}-worker-${var.index}"
   type          = "ipv4"
   assignee_type = "server"
+  datacenter = var.datacenter
   auto_delete   = false
   labels        = {
     "cluster" = var.cluster_name

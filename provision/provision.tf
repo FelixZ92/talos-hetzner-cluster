@@ -1,4 +1,4 @@
-provider "hcloud" {}
+#provider "hcloud" {}
 
 data "helm_template" "cilium" {
   chart      = "cilium"

@@ -2,3 +2,9 @@ cluster:
   etcd:
     advertisedSubnets:
       - ${ip_range}
+  proxy:
+    disabled: true
+    mode: ipvs
+  network:
+    cni:
+      name: none

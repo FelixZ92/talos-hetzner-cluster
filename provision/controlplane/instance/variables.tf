@@ -45,7 +45,3 @@ variable "vpc_cidr" {
 variable "index" {
   type = number
 }
-
-variable "cilium_deployment" {
-  type = string
-}

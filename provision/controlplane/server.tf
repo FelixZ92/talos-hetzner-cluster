@@ -22,5 +22,4 @@ module "instance" {
   private_ip = cidrhost(var.vpc_cidr, var.cidr_offset + count.index)
   vpc_cidr = var.vpc_cidr
   index = count.index
-  cilium_deployment = var.cilium_deployment
 }

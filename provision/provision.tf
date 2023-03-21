@@ -24,7 +24,7 @@ module "controlplane" {
   machine_secrets         = talos_machine_secrets.machine_secrets.machine_secrets
   network_id              = hcloud_network_subnet.subnet.id
   vpc_cidr                = var.vpc_cidr
-  cilium_deployment       = ""
+  cilium_deployment       = helm_release.cilium.manifest
 }
 
 # TODO: make multiple pools configurable

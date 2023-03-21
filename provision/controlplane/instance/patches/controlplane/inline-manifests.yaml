@@ -1,5 +1,4 @@
 cluster:
   inlineManifests:
     - name: cilium
-      contents: |-
-        ${cilium_deployment}
+      contents: ${cilium_deployment}

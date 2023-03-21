@@ -7,7 +7,7 @@ provider kubernetes {
   client_key         = base64decode(yamldecode(talos_cluster_kubeconfig.kubeconfig.kube_config)["users"][0]["user"]["client-key-data"])
 }
 
-provider "helm " {
+provider "helm" {
   kubernetes {
     host = yamldecode(talos_cluster_kubeconfig.kubeconfig.kube_config)["clusters"][0]["cluster"]["server"]
 

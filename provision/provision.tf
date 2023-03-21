@@ -1,18 +1,4 @@
 provider "hcloud" {}
-provider "helm" {}
-
-data "helm_template" "cilium" {
-  chart      = "cilium"
-  namespace  = "kube-system"
-  repository = "https://helm.cilium.io/"
-
-  name   = "cilium"
-  values = [
-    templatefile("cilium.yaml", {
-      private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
-    })
-  ]
-}
 
 module "controlplane" {
   source = "./controlplane"

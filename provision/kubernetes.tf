@@ -18,8 +18,14 @@ provider "helm" {
   }
 }
 
+resource "time_sleep" "wait_30_for_api_server" {
+  depends_on = [module.controlplane]
+
+  create_duration = "30s"
+}
+
 resource "helm_release" "cilium" {
-  depends_on = [talos_machine_bootstrap.bootstrap]
+  depends_on = [talos_machine_bootstrap.bootstrap,time_sleep.wait_30_for_api_server]
   chart      = "cilium"
   namespace  = "kube-system"
   repository = "https://helm.cilium.io/"
@@ -32,16 +38,6 @@ resource "helm_release" "cilium" {
   ]
 }
 
-data "http" "wait_for_cluster" {
-  url            = format("%s/healthz", "https://${hcloud_load_balancer.load_balancer.ipv4}:6443")
-  ca_certificate = base64decode(yamldecode(talos_cluster_kubeconfig.kubeconfig.kube_config)["clusters"][0]["cluster"]["certificate-authority-data"])
-
-  timeout        = "3m0s"
-
-  depends_on = [
-    talos_machine_bootstrap.bootstrap
-  ]
-}
 #
 #resource "kubernetes_secret" "hcloud_token" {
 #  metadata {

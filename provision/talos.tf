@@ -37,14 +37,14 @@ resource "talos_client_configuration" "talosconfig" {
 #}
 #
 
-resource "time_sleep" "wait_30_seconds" {
+resource "time_sleep" "wait_30_for_server_boot" {
   depends_on = [module.controlplane]
 
-  create_duration = "60s"
+  create_duration = "30s"
 }
 
 resource "talos_machine_bootstrap" "bootstrap" {
-  depends_on = [time_sleep.wait_30_seconds]
+  depends_on = [time_sleep.wait_30_for_api_server]
   talos_config = talos_client_configuration.talosconfig.talos_config
   endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
   node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]

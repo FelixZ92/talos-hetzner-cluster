@@ -19,12 +19,13 @@ provider "helm" {
 }
 
 resource "helm_release" "cilium" {
+  depends_on = [talos_machine_bootstrap.bootstrap]
   chart      = "cilium"
   namespace  = "kube-system"
   repository = "https://helm.cilium.io/"
-  version = "1.13.1"
-  name   = "cilium"
-  values = [
+  version    = "1.13.1"
+  name       = "cilium"
+  values     = [
     templatefile("cilium.yaml", {
       private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
     })

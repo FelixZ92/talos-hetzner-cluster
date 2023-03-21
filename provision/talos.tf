@@ -40,7 +40,7 @@ resource "talos_client_configuration" "talosconfig" {
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [module.controlplane]
 
-  create_duration = "180s"
+  create_duration = "60s"
 }
 
 resource "talos_machine_bootstrap" "bootstrap" {

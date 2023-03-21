@@ -55,4 +55,3 @@ resource "talos_cluster_kubeconfig" "kubeconfig" {
   endpoint     = hcloud_load_balancer.load_balancer.ipv4
   node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.private_address][0]
 }
-

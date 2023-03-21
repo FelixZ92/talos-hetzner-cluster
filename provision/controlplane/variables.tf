@@ -50,3 +50,7 @@ variable "loadbalancer_public_ip" {
 variable "loadbalancer_private_ip" {
   type = string
 }
+
+variable "cilium_deployment" {
+  type = string
+}

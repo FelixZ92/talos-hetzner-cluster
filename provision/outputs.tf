@@ -19,3 +19,7 @@ output "kubeconfig" {
 output "cilium" {
   value = data.helm_template.cilium.manifest
 }
+
+output "cilium_yamls" {
+  value = data.helm_template.cilium.manifests
+}

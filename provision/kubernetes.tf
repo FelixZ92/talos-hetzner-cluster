@@ -18,11 +18,11 @@ provider kubernetes {
 #  }
 #}
 #
-#resource "time_sleep" "wait_30_for_api_server" {
-#  depends_on = [talos_machine_bootstrap.bootstrap]
-#
-#  create_duration = "60s"
-#}
+resource "time_sleep" "wait_30_for_api_server" {
+  depends_on = [talos_machine_bootstrap.bootstrap]
+
+  create_duration = "60s"
+}
 #
 #resource "helm_release" "cilium" {
 #  depends_on = [time_sleep.wait_30_for_api_server]

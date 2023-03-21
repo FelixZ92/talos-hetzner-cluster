@@ -3,5 +3,3 @@ cluster:
     certSANs:
       - ${public_loadbalancer_ip}
       - ${private_loadbalancer_ip}
-      - ${private_ip}
-      - ${public_ip}

@@ -21,17 +21,15 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
   cluster_endpoint = "https://${var.loadbalancer_public_ip}:6443"
   machine_secrets  = var.machine_secrets
   config_patches   = [
-    file("${path.module}/patches/common/interfaces.yaml"),
     templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
       ip_range = var.vpc_cidr
     }),
     templatefile("${path.module}/patches/common/machine-cert-sans.yaml", {
       public_loadbalancer_ip  = var.loadbalancer_public_ip
       private_loadbalancer_ip = var.loadbalancer_private_ip
-      public_ip               = hcloud_primary_ip.primary_ip.ip_address
-      private_ip              = var.private_ip
     }),
     file("${path.module}/patches/common/rotate-certs.yaml"),
+    file("${path.module}/patches/common/time-server.yaml"),
   ]
 }
 
@@ -45,6 +43,7 @@ resource "hcloud_server" "worker" {
   labels             = {
     "cluster" = var.cluster_name
     "role"    = "worker"
+    "pool"    = var.pool_name
   }
 
   public_net {

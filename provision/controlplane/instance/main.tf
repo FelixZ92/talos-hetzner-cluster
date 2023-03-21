@@ -21,17 +21,15 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
   cluster_endpoint = "https://${var.loadbalancer_public_ip}:6443"
   machine_secrets  = var.machine_secrets
   config_patches   = [
-    file("${path.module}/patches/common/interfaces.yaml"),
     templatefile("${path.module}/patches/common/kubelet-valid-subnets.yaml", {
       ip_range = var.vpc_cidr
     }),
     templatefile("${path.module}/patches/common/machine-cert-sans.yaml", {
       public_loadbalancer_ip  = var.loadbalancer_public_ip
       private_loadbalancer_ip = var.loadbalancer_private_ip
-      public_ip               = hcloud_primary_ip.primary_ip.ip_address
-      private_ip              = var.private_ip
     }),
     file("${path.module}/patches/common/rotate-certs.yaml"),
+    file("${path.module}/patches/common/time-server.yaml"),
     file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
     templatefile("${path.module}/patches/controlplane/etcd-advertised-subnets.yaml", {
       ip_range = var.vpc_cidr
@@ -39,8 +37,9 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
     templatefile("${path.module}/patches/controlplane/extra-sans.yaml", {
       public_loadbalancer_ip  = var.loadbalancer_public_ip
       private_loadbalancer_ip = var.loadbalancer_private_ip
-      public_ip               = hcloud_primary_ip.primary_ip.ip_address
-      private_ip              = var.private_ip
+    }),
+    templatefile("${path.module}/patches/controlplane/inline-manifests.yaml", {
+      cilium_deployment = var.cilium_deployment
     }),
     file("${path.module}/patches/controlplane/metrics-server.yaml"),
   ]

@@ -38,9 +38,6 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
       public_loadbalancer_ip  = var.loadbalancer_public_ip
       private_loadbalancer_ip = var.loadbalancer_private_ip
     }),
-    templatefile("${path.module}/patches/controlplane/inline-manifests.yaml", {
-      cilium_deployment = var.cilium_deployment
-    }),
     file("${path.module}/patches/controlplane/metrics-server.yaml"),
   ]
 }

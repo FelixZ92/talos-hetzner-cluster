@@ -15,3 +15,7 @@ output "kubeconfig" {
   value     = talos_cluster_kubeconfig.kubeconfig.kube_config
   sensitive = true
 }
+
+output "cilium" {
+  value = data.helm_template.cilium.manifest
+}

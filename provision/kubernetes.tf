@@ -25,7 +25,7 @@ resource "time_sleep" "wait_30_for_api_server" {
 }
 
 resource "helm_release" "cilium" {
-  depends_on = [talos_machine_bootstrap.bootstrap,time_sleep.wait_30_for_api_server]
+  depends_on = [time_sleep.wait_30_for_api_server]
   chart      = "cilium"
   namespace  = "kube-system"
   repository = "https://helm.cilium.io/"

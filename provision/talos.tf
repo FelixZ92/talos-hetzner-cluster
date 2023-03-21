@@ -44,7 +44,7 @@ resource "time_sleep" "wait_30_for_server_boot" {
 }
 
 resource "talos_machine_bootstrap" "bootstrap" {
-  depends_on = [time_sleep.wait_30_for_api_server]
+  depends_on = [time_sleep.wait_30_for_server_boot]
   talos_config = talos_client_configuration.talosconfig.talos_config
   endpoint     = hcloud_load_balancer.load_balancer.ipv4
   node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.private_address][0]

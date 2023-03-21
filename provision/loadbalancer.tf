@@ -24,9 +24,16 @@ resource "hcloud_load_balancer_target" "load_balancer_target" {
   depends_on       = [hcloud_load_balancer_network.load_balancer]
 }
 
-resource "hcloud_load_balancer_service" "load_balancer_service" {
+resource "hcloud_load_balancer_service" "k8s_api_server" {
   load_balancer_id = hcloud_load_balancer.load_balancer.id
   protocol         = "tcp"
   listen_port      = 6443
   destination_port = 6443
+}
+
+resource "hcloud_load_balancer_service" "talos_api_server" {
+  load_balancer_id = hcloud_load_balancer.load_balancer.id
+  protocol         = "tcp"
+  listen_port      = 50000
+  destination_port = 50000
 }

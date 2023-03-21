@@ -46,13 +46,13 @@ resource "time_sleep" "wait_30_for_server_boot" {
 resource "talos_machine_bootstrap" "bootstrap" {
   depends_on = [time_sleep.wait_30_for_api_server]
   talos_config = talos_client_configuration.talosconfig.talos_config
-  endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
-  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
+  endpoint     = hcloud_load_balancer.load_balancer.ipv4
+  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.private_address][0]
 }
 
 resource "talos_cluster_kubeconfig" "kubeconfig" {
   talos_config = talos_client_configuration.talosconfig.talos_config
-  endpoint     = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
-  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.public_address][0]
+  endpoint     = hcloud_load_balancer.load_balancer.ipv4
+  node         = [for k, v in module.controlplane.controlplane_hosts.controlplanes : v.private_address][0]
 }
 

@@ -24,19 +24,19 @@ resource "time_sleep" "wait_30_for_api_server" {
   create_duration = "60s"
 }
 #
-#resource "helm_release" "cilium" {
-#  depends_on = [time_sleep.wait_30_for_api_server]
-#  chart      = "cilium"
-#  namespace  = "kube-system"
-#  repository = "https://helm.cilium.io/"
-#  version    = "1.13.1"
-#  name       = "cilium"
-#  values     = [
-#    templatefile("cilium.yaml", {
-#      private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
-#    })
-#  ]
-#}
+resource "helm_release" "cilium" {
+  depends_on = [time_sleep.wait_30_for_api_server]
+  chart      = "cilium"
+  namespace  = "kube-system"
+  repository = "https://helm.cilium.io/"
+  version    = "1.13.1"
+  name       = "cilium"
+  values     = [
+    templatefile("cilium.yaml", {
+      private_loadbalancer_ip = hcloud_load_balancer_network.load_balancer.ip
+    })
+  ]
+}
 
 #
 #resource "kubernetes_secret" "hcloud_token" {

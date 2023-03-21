@@ -31,9 +31,6 @@ resource "talos_machine_configuration_worker" "machineconfig_worker" {
       public_ip               = hcloud_primary_ip.primary_ip.ip_address
       private_ip              = var.private_ip
     }),
-#    templatefile("${path.module}/patches/common/node-ip.yaml", {
-#      private_ip = var.private_ip
-#    }),
     file("${path.module}/patches/common/rotate-certs.yaml"),
   ]
 }
@@ -52,5 +49,14 @@ resource "hcloud_server" "worker" {
 
   public_net {
     ipv4 = hcloud_primary_ip.primary_ip.id
+  }
+
+  lifecycle {
+    ignore_changes = [
+      image,
+      server_type,
+      user_data,
+      ssh_keys,
+    ]
   }
 }

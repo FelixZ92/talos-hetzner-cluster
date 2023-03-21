@@ -31,9 +31,6 @@ resource "talos_machine_configuration_controlplane" "machineconfig_cp" {
       public_ip               = hcloud_primary_ip.primary_ip.ip_address
       private_ip              = var.private_ip
     }),
-#    templatefile("${path.module}/patches/common/node-ip.yaml", {
-#      private_ip = var.private_ip
-#    }),
     file("${path.module}/patches/common/rotate-certs.yaml"),
     file("${path.module}/patches/controlplane/cloud-provider-hetzner.yaml"),
     templatefile("${path.module}/patches/controlplane/etcd-advertised-subnets.yaml", {
@@ -63,5 +60,15 @@ resource "hcloud_server" "control_plane" {
 
   public_net {
     ipv4 = hcloud_primary_ip.primary_ip.id
+  }
+
+  lifecycle {
+    ignore_changes = [
+      network,
+      image,
+      server_type,
+      user_data,
+      ssh_keys,
+    ]
   }
 }

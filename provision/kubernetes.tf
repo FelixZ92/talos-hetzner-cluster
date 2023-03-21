@@ -19,7 +19,7 @@ provider "helm" {
 }
 
 resource "time_sleep" "wait_30_for_api_server" {
-  depends_on = [module.controlplane]
+  depends_on = [talos_machine_bootstrap.bootstrap]
 
   create_duration = "60s"
 }

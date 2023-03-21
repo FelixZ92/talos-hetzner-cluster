@@ -21,7 +21,7 @@ provider "helm" {
 resource "time_sleep" "wait_30_for_api_server" {
   depends_on = [module.controlplane]
 
-  create_duration = "30s"
+  create_duration = "60s"
 }
 
 resource "helm_release" "cilium" {

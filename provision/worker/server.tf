@@ -7,20 +7,33 @@ resource "hcloud_placement_group" "node_pool" {
   }
 }
 
-module "instance" {
-  source = "./instance"
+resource "hcloud_server_network" "worker" {
+  count     = var.worker_replicas
+  server_id = element(hcloud_server.worker.*.id, count.index)
+  subnet_id = var.network_id
+  ip        = cidrhost(var.vpc_cidr, var.cidr_offset + count.index)
+}
+
+resource "hcloud_server" "worker" {
   count = var.worker_replicas
-  cluster_name = var.cluster_name
-  datacenter = var.datacenter
-  image = var.image
-  loadbalancer_private_ip = var.loadbalancer_private_ip
-  loadbalancer_public_ip = var.loadbalancer_public_ip
-  machine_secrets = var.machine_secrets
-  network_id = var.network_id
-  placement_group = hcloud_placement_group.node_pool.id
-  private_ip = cidrhost(var.vpc_cidr, var.cidr_offset + count.index)
-  vpc_cidr = var.vpc_cidr
-  pool_name   = var.pool_name
-  worker_type = var.worker_type
-  index = count.index
+  name               = "${var.cluster_name}-${var.pool_name}-worker-${count.index}"
+  server_type        = var.worker_type
+  image              = var.image
+  datacenter         = var.datacenter
+  placement_group_id = hcloud_placement_group.node_pool.id
+  user_data          = var.user_data
+  labels             = {
+    "cluster" = var.cluster_name
+    "role"    = "worker"
+    "pool"    = var.pool_name
+  }
+
+  lifecycle {
+    ignore_changes = [
+      image,
+      server_type,
+      user_data,
+      ssh_keys,
+    ]
+  }
 }

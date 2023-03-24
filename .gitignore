@@ -1,2 +1,7 @@
 *.iml
 .idea/
+
+*-out.json
+talosconfig
+.terraform
+kubeconfig

@@ -1,0 +1,15 @@
+cluster:
+  inlineManifests:
+    - name: hcloud-token
+      contents: |-
+        apiVersion: v1
+        data:
+          token: ${base64encode(hcloud_token)}
+        kind: Secret
+        metadata:
+          name: hcloud
+          namespace: kube-system
+        type: Opaque
+    - name: cilium
+      contents: |-
+        ${indent(8, cilium_deployment)}

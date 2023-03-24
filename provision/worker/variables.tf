@@ -47,10 +47,6 @@ variable "machine_secrets" {
   type = string
 }
 
-variable "loadbalancer_public_ip" {
-  type = string
-}
-
-variable "loadbalancer_private_ip" {
+variable "user_data" {
   type = string
 }

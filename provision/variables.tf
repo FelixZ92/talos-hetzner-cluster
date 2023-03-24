@@ -1,3 +1,7 @@
+variable "hcloud_token" {
+  type = string
+}
+
 variable "cluster_name" {
   description = "prefix for cloud resources"
   type        = string

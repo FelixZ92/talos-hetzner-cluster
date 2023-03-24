@@ -1,9 +1,9 @@
 output "worker_hosts" {
   value = {
     worker = {
-      for i, w in module.instance.*.worker_host : w.name => {
-        private_address = w.private_address
-        public_address = w.public_address
+      for i, w in hcloud_server.worker.* : w.name => {
+        private_address = hcloud_server_network.worker[i].ip
+        public_address = w.ipv4_address
       }
     }
   }

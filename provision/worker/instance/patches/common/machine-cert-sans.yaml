@@ -1,4 +1,0 @@
-machine:
-  certSANs:
-    - ${public_loadbalancer_ip}
-    - ${private_loadbalancer_ip}

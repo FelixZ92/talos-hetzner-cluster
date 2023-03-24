@@ -43,14 +43,6 @@ variable "machine_secrets" {
   type = string
 }
 
-variable "loadbalancer_public_ip" {
-  type = string
-}
-
-variable "loadbalancer_private_ip" {
-  type = string
-}
-
-variable "cilium_deployment" {
+variable "user_data" {
   type = string
 }
